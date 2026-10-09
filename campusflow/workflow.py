@@ -98,8 +98,12 @@ def get_open_queue(tickets: list[Ticket]) -> list[Ticket]:
         ticket_id = ticket.get("id")
         if priority not in _PRIORITY_ORDER:
             raise ValueError(f"Unknown ticket priority: {priority!r}.")
-        if isinstance(ticket_id, bool) or not isinstance(ticket_id, int):
-            raise ValueError(f"Ticket ID must be an integer; got {ticket_id!r}.")
+        if (
+            isinstance(ticket_id, bool)
+            or not isinstance(ticket_id, int)
+            or ticket_id < 1
+        ):
+            raise ValueError(f"Ticket ID must be a positive integer; got {ticket_id!r}.")
         return (_PRIORITY_ORDER[priority], ticket_id)
 
     return sorted(open_tickets, key=sort_key)
