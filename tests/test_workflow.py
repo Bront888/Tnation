@@ -112,6 +112,11 @@ class QueueTests(unittest.TestCase):
         self.assertEqual([ticket["id"] for ticket in tickets], original_ids)
         self.assertIsNot(queue, tickets)
 
+
+    def test_queue_rejects_nonpositive_ticket_id(self):
+        with self.assertRaises(ValueError):
+            get_open_queue([make_ticket(0, priority="critical")])
+
     def test_empty_queue_is_empty(self):
         self.assertEqual(get_open_queue([]), [])
 
