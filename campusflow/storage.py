@@ -1,5 +1,5 @@
 
-"""JSON persistence for CampusFlow tickets."""
+#JSON persistence for CampusFlow tickets.
 
 import json
 import os
@@ -10,7 +10,7 @@ from .tickets import calculate_priority
 
 
 class StorageError(Exception):
-    """Raised when ticket data cannot be safely loaded or saved."""
+    #Raised when ticket data cannot be safely loaded or saved.
 
 
 REQUIRED_FIELDS = {
@@ -31,7 +31,7 @@ VALID_STATUSES = {"open", "in_progress", "resolved"}
 
 
 def _validate_tickets(tickets):
-    """Reject invalid records before loading or saving them."""
+    #Reject invalid records before loading or saving them.
     if not isinstance(tickets, list):
         raise StorageError("Ticket data must be a JSON list.")
 
@@ -106,7 +106,7 @@ def _validate_tickets(tickets):
 
 
 def load_tickets(path):
-    """Load and validate tickets; a missing file means a fresh start."""
+    # Load and validate tickets; a missing file means a fresh start.
     file_path = Path(path)
 
     try:
@@ -128,7 +128,7 @@ def load_tickets(path):
 
 
 def save_tickets(path, tickets):
-    """Validate and atomically save tickets as JSON."""
+    #Validate and atomically save tickets as JSON.
     _validate_tickets(tickets)
     file_path = Path(path)
     temporary_path = None

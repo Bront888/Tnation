@@ -1,4 +1,4 @@
-"""Tickets creation, validation, lookup and priority calculation."""
+#Tickets creation, validation, lookup and priority calculation.
 
 CATEGORIES = {
     "network": "Network",
@@ -19,7 +19,7 @@ PRIORITY_ORDER = {
 
 
 def _normalize_choice(value, allowed, field_name):
-    """Normalize a string choice or reject an invalid value."""
+    #Normalize a string choice or reject an invalid value.
     if not isinstance(value, str):
         raise ValueError(f"{field_name} must be a string")
 
@@ -36,7 +36,7 @@ def _normalize_choice(value, allowed, field_name):
 
 
 def _validate_affected_users(affected_users):
-    """Require a positive whole-number count, excluding booleans"""
+    #Require a positive whole-number count, excluding booleans
     if (
         isinstance(affected_users, bool)
         or not isinstance(affected_users, int)
@@ -46,7 +46,7 @@ def _validate_affected_users(affected_users):
 
 
 def calculate_priority(urgency, affected_users):
-    """Calculate priority using the agreed rule precedence."""
+    #Calculate priority using the agreed rule precedence.
     _normalize_urgency = _normalize_choice(
         urgency, {value: value for value in URGENCIES}, "urgency"
     )
@@ -65,7 +65,7 @@ def calculate_priority(urgency, affected_users):
 
 
 def get_next_ticket_id(tickets):
-    """Return the next ID after the largest existing tickets Id"""
+    #Return the next ID after the largest existing tickets Id
     existing_ids = [
         ticket["id"]
         for ticket in tickets
@@ -78,7 +78,7 @@ def get_next_ticket_id(tickets):
 
 
 def find_ticket(tickets, ticket_id):
-    """Find a ticket by ID or raise KeyError"""
+    #Find a ticket by ID or raise KeyError
     for ticket in tickets:
         if ticket["id"] == ticket_id:
             return ticket
@@ -86,7 +86,7 @@ def find_ticket(tickets, ticket_id):
     raise KeyError(f"Ticket")
 
 def create_ticket(tickets, title, category, urgency, affected_users):
-    """Validate and  append a new ticket, rteturning the new record."""
+    #Validate and  append a new ticket, rteturning the new record.
     if not isinstance(title, str) or not title.strip():
         raise ValueError("Ticket title cannot be blank")
 
